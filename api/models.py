@@ -29,3 +29,26 @@ class ApiKey(models.Model):
 
 class ApiKeyAdmin(admin.ModelAdmin):
     list_display = ('owner','key')
+
+class Dog(models.Model):
+    name = models.CharField(max_length=5000, blank=False)
+    age = models.IntegerField()
+    breed = models.ForeignKey('Breed', on_delete=models.CASCADE)
+    gender = models.CharField(max_length=5000, blank=False)
+    color = models.CharField(max_length=5000, blank=False)
+    favoritefood = models.CharField(max_length=5000, blank=False)
+    favoritetoy = models.CharField(max_length=5000, blank=False)
+
+class Breed(models.Model):
+    SIZES = (
+        ('Tiny'),
+        ('Small'),
+        ('Medium'),
+        ('Large'),
+    )
+    name = models.CharField(max_length=5000, blank=False)
+    size = models.CharField(max_length=5000, choices=SIZES)
+    friendliness = models.IntegerField(Validators=[MinValueValidator(1), MaxValueValidator(5)])
+    trainability = models.IntegerField(Validators=[MinValueValidator(1), MaxValueValidator(5)])
+    sheddingamount= models.IntegerField(Validators=[MinValueValidator(1), MaxValueValidator(5)])
+    exerciseneeds = models.IntegerField(Validators=[MinValueValidator(1), MaxValueValidator(5)])
